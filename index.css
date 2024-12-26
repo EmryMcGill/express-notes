@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+    font-family: 'Nunito';
+    --primary: #35A6EF;
+    --primary-dark: #3299de;
+    --background-primary: #e6ebf0;
+    --background-secondary: white;
+    --text-primary: black;
+}
+
+body {
+    background-color: var(--background-primary);
+}
+
+button {
+    border: none;
+    padding: 0.8rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--primary);
+    color: white;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: var(--primary-dark);
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+img {
+    height: 1.5rem;
+}

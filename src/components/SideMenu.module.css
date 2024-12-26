@@ -1,0 +1,51 @@
+.side_menu_outer {
+    display: flex;
+    align-items: start;
+    transition: all 0.3s ease-in-out;
+}
+
+.side_menu {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 100vh;
+    background-color: var(--background-secondary);
+    padding: 1rem;
+}
+
+.h1 {
+    margin-bottom: 2rem;
+}
+
+.btn_tag {
+    padding: 0.3rem;
+    padding-left: 0.5rem;
+    width: 100%;
+    color: black;
+    text-align: start;
+    background: none;
+}
+
+.btn_tag:hover {
+    background-color: var(--background-primary);
+}
+
+.btn_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+    width: fit-content;
+    background: none;
+    margin: 0.5rem;
+}
+
+.btn_icon:hover {
+    background-color: var(--background-secondary);
+}
+
+@media (max-width: 400px) {
+    .side_menu {
+        transform: translateX(-250px);
+    }
+}

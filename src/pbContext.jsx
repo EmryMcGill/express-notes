@@ -1,13 +1,13 @@
 import Pocketbase from 'pocketbase';
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 // url for pb TODO: move this to .env
-const BASE_URL = 'http://127.0.0.1:8090';
+const BASE_URL = 'http://localhost:8090';
 
 // create the pb context
 const PbContext = createContext();
 
-const PbProvider = ({ children }) => {
+export const PbProvider = ({ children }) => {
     // define the pb object 
     const pb = useMemo(() => new Pocketbase(BASE_URL));
 
@@ -25,3 +25,6 @@ const PbProvider = ({ children }) => {
         </PbContext.Provider>
     );
 }
+
+// export custom hook to simplify using useContext
+export const usePocket = () => useContext(PbContext);
