@@ -1,7 +1,9 @@
 .side_menu_outer {
     display: flex;
     align-items: start;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s;
+    width: fit-content;
+    z-index: 2;
 }
 
 .side_menu {
@@ -15,6 +17,15 @@
 
 .h1 {
     margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+}
+
+.btn_new_note {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .btn_tag {
@@ -27,7 +38,7 @@
 }
 
 .btn_tag:hover {
-    background-color: var(--background-primary);
+    background-color: var(--background-primary) !important;
 }
 
 .btn_icon {

@@ -1,0 +1,47 @@
+.note_card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    max-width: 300px;
+    width: 300px;
+    height: fit-content;
+    max-height: 300px;
+    border-radius: 10px;
+    background-color: var(--background-secondary);
+    padding: 1rem;
+    z-index: 3;
+}
+
+.input_area {
+    max-width: 300px;
+    max-height: 300px;
+    word-wrap: break-word;
+}
+
+.input_area:focus {
+    outline: none;
+}
+
+.overlay {
+        position: absolute; 
+        z-index: 2;
+        opacity: 0.2; 
+        top: 0; 
+        bottom: 0; 
+        left: 0; 
+        right: 0; 
+        width: 100%; 
+        height: 100%; 
+        background-color: Black; 
+        color: White;
+}
+
+.overlay:hover {
+    background-color: black;
+    cursor: default;
+}
+
+.tag {
+    margin-top: 1rem;;
+}
