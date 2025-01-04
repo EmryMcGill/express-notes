@@ -18,7 +18,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
     const bodyRef = useRef();
 
     const handleUpdateNote = async () => {
-        if (noteRef.current.textContent === "") {
+        if (bodyRef.current.textContent === "") {
             // note empty
             // delete note
             await deleteNote(note.id);
@@ -27,7 +27,8 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
             // extract tag titles from the input
             const tagTitles = [...bodyRef.current.innerText.matchAll(/#(\w+)(?=\s|$)/g)].map(match => match[1]);
             // get body content with line breaks
-            const body = bodyRef.current.innerText.replace(/#\w+/g, "").trim().replace(/\n/g, "<br/>");
+            const body = bodyRef.current.innerText.replace(/#(\w+)(?=\s|$)/g, "").trim().replace(/\n/g, "<br/>");
+
             // make list for tag ids
             let newNoteTags = [...note.tags];
             
@@ -48,13 +49,15 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
             
             // api call: update note
             await updateNote(note.id, body, user.id, newNoteTags);
-
+            
             // close edit mode
             setIsEditNote(false);
             noteRef.current.style.zIndex = '1';
+
+            bodyRef.current.textContent = body;
         }
-        // refresh notes
-        await refreshNotesAndTags();
+          // refresh notes
+          await refreshNotesAndTags();
     }
 
     const handleDeleteNote = async () => {
@@ -70,7 +73,6 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
         if (filteredTags.length !== 0) {
             tagListRef.current.style.marginTop = '1rem';
         }
-
     }, [note]);
 
     return (
