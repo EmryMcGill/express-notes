@@ -10,7 +10,6 @@
     width: 300px;
     max-width: 300px;
     height: fit-content;
-    max-height: 300px;
     border-radius: 10px;
     background-color: var(--background-secondary);
     padding: 1rem;
@@ -22,8 +21,12 @@
     transition: all 0.1s ease;
 }
 
+.note_card:hover .btn_icon {
+    display: flex;
+}
+
 .body {
-    max-height: 300px;
+    max-height: 250px;
     overflow: auto;
     word-wrap: break-word;
 }
@@ -37,6 +40,7 @@
     flex-wrap: wrap;
     align-content: flex-start;
     gap: 0.5rem;
+    padding-right: 0.5rem;
 }
 
 .tag {
@@ -46,6 +50,10 @@
     padding-left: 0.3rem;
     padding-right: 0.3rem;
     border-radius: 5px;
+}
+
+.tag:hover {
+    cursor: pointer;
 }
 
 .overlay {
@@ -70,6 +78,34 @@ cursor: default;
 .close_btn {
     position: absolute;
     margin-top: 0.5rem;
+    margin-left: 250px;
     padding: 0.3rem;
     z-index: 3;
+}
+
+.btn_icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+    width: fit-content;
+    margin: 0.5rem;
+    background: none;
+}
+
+.btn_icon:hover {
+    background-color: var(--background-primary);
+}
+
+.trash_icon {
+    height: 1rem;
+}
+
+.date {
+    color: grey;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
 }

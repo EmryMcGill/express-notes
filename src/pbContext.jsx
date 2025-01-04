@@ -21,13 +21,14 @@ export const PbProvider = ({ children }) => {
 
     // api calls
 
+    //--------- NOTES --------------
+
     // return: [] of notes
     const getNotes = async () => {
         try {
             const res = await pb.collection('notes').getFullList({
-                sort: '-created'
+                sort: '-updated'
             });
-            console.log(res)
             return res;
         }
         catch (err) {
@@ -35,6 +36,48 @@ export const PbProvider = ({ children }) => {
             return null;
         }
     }
+
+    // return: note {}
+    const createNote = async (body, user, tags) => {
+        try {
+            const res = await pb.collection('notes').create({
+                body: body,
+                user: user,
+                tags: tags
+            });
+            return res;
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    // return: note {}
+    const updateNote = async (noteId, body, user, tags) => {
+        try {
+            const res = await pb.collection('notes').update(noteId, {
+                body: body,
+                user: user,
+                tags: tags
+            });
+            return res;
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    // return: null
+    const deleteNote = async (noteId) => {
+        try {
+            await pb.collection('notes').delete(noteId);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    // ---------- TAGS --------------
 
     // return: [] of tags
     const getTags = async () => {
@@ -48,42 +91,7 @@ export const PbProvider = ({ children }) => {
         }
     }
 
-    // return: null
-    const createNote = async (body, user, tags) => {
-        try {
-            await pb.collection('notes').create({
-                body: body,
-                user: user,
-                tags: tags
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
-    const updateNote = async (noteId, body, user, tags) => {
-        try {
-            await pb.collection('notes').update(noteId, {
-                body: body,
-                user: user,
-                tags: tags
-            });
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
-    const deleteNote = async (noteId) => {
-        try {
-            await pb.collection('notes').delete(noteId);
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-
+    // return: tag {}
     const createTag = async (title, user) => {
         try {
             const res = await pb.collection('tags').create({
@@ -91,6 +99,16 @@ export const PbProvider = ({ children }) => {
                 user: user
             });
             return res;
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    // return: null
+    const deleteTag = async (tagId) => {
+        try {
+            await pb.collection('tags').delete(tagId);
         }
         catch (err) {
             console.log(err);
@@ -106,7 +124,8 @@ export const PbProvider = ({ children }) => {
             updateNote, 
             deleteNote,
             getTags, 
-            createTag
+            createTag,
+            deleteTag
         }}>
         {children}
         </PbContext.Provider>

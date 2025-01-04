@@ -23,6 +23,14 @@
     color: black;
 }
 
+.h2 {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: black;
+}
+
 .btn_new_note {
     padding: 0.5rem;
     margin-bottom: 1rem;

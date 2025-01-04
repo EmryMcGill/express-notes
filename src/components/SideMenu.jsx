@@ -2,8 +2,6 @@
 import styles from "./SideMenu.module.css";
 import menu from '../../public/menu.svg';
 import { useEffect, useRef, useState } from "react";
-import { usePocket } from "../PbContext";
-
 
 const SideMenu = ({ 
     changePageMargin, 
@@ -50,7 +48,7 @@ const SideMenu = ({
 
                 <button onClick={toggleIsNewNote} className={styles.btn_new_note}>+ New Note</button>
                 
-                <h2>Tags</h2>
+                <h2 className={styles.h2}>Tags</h2>
                 <div ref={tagListRef} className={styles.tag_list}>
                     <button 
                         className={styles.btn_tag}

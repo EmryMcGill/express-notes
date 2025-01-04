@@ -2,11 +2,12 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './NoteCard.module.css';
 import { usePocket } from '../PbContext';
+import trash from '../../public/trash.svg';
 
 const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
 
     // global state
-    const { pb, updateNote, user, deleteNote } = usePocket();
+    const { pb, updateNote, user, deleteNote, createTag } = usePocket();
     // local state
     const [noteTags, setNoteTags] = useState([]);
     const [isEditNote, setIsEditNote] = useState(false);
@@ -50,8 +51,16 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
             // close edit mode
             setIsEditNote(false);
             noteRef.current.style.zIndex = '1';
+
+            bodyRef.current.dangerouslySetInnerHTML = body;
         }
         // refresh notes
+        await refreshNotesAndTags();
+    }
+
+    const handleDeleteNote = async () => {
+        await deleteNote(note.id);
+
         await refreshNotesAndTags();
     }
 
@@ -70,22 +79,35 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
             <button onClick={handleUpdateNote} className={styles.overlay}></button>
             : ''}
 
-            <section ref={noteRef} className={styles.note_card}>
+            <section 
+            ref={noteRef} 
+            className={styles.note_card}
+             >
                 <p 
                 ref={bodyRef}
                 dangerouslySetInnerHTML={{ __html: note.body }} 
                 className={styles.body}
                 contentEditable='true'
-                onFocus={() => {
+                onFocus={(e) => {
                     setIsEditNote(true);
                     noteRef.current.style.zIndex = '3';
                 }}></p>
+
+                <button onClick={handleDeleteNote} className={styles.btn_icon}>
+                    <img className={styles.trash_icon} src={trash} alt="delete" />
+                </button>
 
                 <div ref={tagListRef} className={styles.tag_list}>
                     {noteTags.map((tag) => 
                         <p className={styles.tag} key={Math.random()}>{tag.title}</p>
                     )}
                 </div>
+
+                <p className={styles.date}>{new Date(note.updated).toLocaleString({
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true
+                })}</p>
             </section>
 
             {isEditNote?

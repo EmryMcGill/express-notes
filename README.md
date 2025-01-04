@@ -1,5 +1,5 @@
 todo:
 
-- move close btn to other side
+- create better readme
+- add: change background color btn
 - drag to move them around
-- last edit date

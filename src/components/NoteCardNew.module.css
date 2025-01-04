@@ -1,8 +1,12 @@
+.note_container {
+    padding-top: 1rem;
+    page-break-inside: avoid;
+}
+
 .note_card {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: fit-content;
     max-width: 300px;
     width: 300px;
     height: fit-content;
@@ -44,4 +48,12 @@
 
 .tag {
     margin-top: 1rem;;
+}
+
+.close_btn {
+    position: absolute;
+    margin-top: 0.5rem;
+    margin-left: 250px;
+    padding: 0.3rem;
+    z-index: 3;
 }

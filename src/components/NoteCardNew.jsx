@@ -68,7 +68,7 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
     }, [])
 
     return (
-        <div>
+        <div className={styles.note_container}>
             <button onClick={handleNewNote} className={styles.overlay}></button>
 
             <section className={styles.note_card}>
@@ -79,6 +79,9 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
                 : ''}
                 
             </section>
+
+            <button onClick={handleNewNote} className={styles.close_btn}>Close</button>
+            
         </div>
         
     );
