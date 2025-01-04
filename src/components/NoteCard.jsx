@@ -11,6 +11,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
     // local state
     const [noteTags, setNoteTags] = useState([]);
     const [isEditNote, setIsEditNote] = useState(false);
+
     // refs
     const tagListRef = useRef();
     const noteRef = useRef();
@@ -51,8 +52,6 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
             // close edit mode
             setIsEditNote(false);
             noteRef.current.style.zIndex = '1';
-
-            bodyRef.current.dangerouslySetInnerHTML = body;
         }
         // refresh notes
         await refreshNotesAndTags();
@@ -71,6 +70,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
         if (filteredTags.length !== 0) {
             tagListRef.current.style.marginTop = '1rem';
         }
+
     }, [note]);
 
     return (
@@ -85,9 +85,9 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
              >
                 <p 
                 ref={bodyRef}
-                dangerouslySetInnerHTML={{ __html: note.body }} 
                 className={styles.body}
                 contentEditable='true'
+                dangerouslySetInnerHTML = {{ __html: note.body }}
                 onFocus={(e) => {
                     setIsEditNote(true);
                     noteRef.current.style.zIndex = '3';

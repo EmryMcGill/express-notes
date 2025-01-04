@@ -64,7 +64,9 @@
 }
 
 @media (max-width: 400px) {
-    .side_menu {
-        transform: translateX(-250px);
+    .side_menu_outer {
+        position: fixed;
     }
+
+    
 }
