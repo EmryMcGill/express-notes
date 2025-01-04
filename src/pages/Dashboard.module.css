@@ -15,6 +15,12 @@
     container-type: inline-size;
 }
 
+.input_container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
 .input {
     font-size: 1rem;
     padding: 0.8rem;
@@ -46,6 +52,8 @@
     column-count: 4;
   }
 }
+
+
 
 @media (max-width: 400px) {
   .main_container {

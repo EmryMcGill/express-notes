@@ -98,7 +98,9 @@ const Dashboard = () => {
         activeTag={activeTag} />
 
         <div ref={mainRef} className={styles.main_container}>
-            <input onChange={search} ref={searchRef} placeholder="Search notes" className={styles.input} type="text" />
+            <div className={styles.input_container}>
+                <input onChange={search} ref={searchRef} placeholder="Search notes" className={styles.input} type="text" />
+            </div>
             <div className={styles.notes_list}>
                 {isNewNote ? <NoteCardNew tags={allTags} activeTag={activeTag} refreshNotesAndTags={refreshNotesAndTags} toggleIsNewNote={toggleIsNewNote} /> : ''}
 
