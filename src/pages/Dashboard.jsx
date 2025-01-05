@@ -4,6 +4,11 @@ import NoteCard from "../components/noteCard";
 import NoteCardNew from "../components/NoteCardNew";
 import styles from './Dashboard.module.css';
 import { usePocket } from "../PbContext";
+import { 
+    saveNotesOffline, 
+    getAllNotesOffline, 
+    saveTagsOffline, 
+    getAllTagsOffline } from '../db.js';
 
 const Dashboard = () => {
 
@@ -66,11 +71,26 @@ const Dashboard = () => {
     // fetches notes and tags from pb
     // return: null
     const refreshNotesAndTags = async (tagId) => {
-        // refresh notes from pb
-        const notes = await getNotes();
-        let tags = await getTags();
+        let notes;
+        let tags = [];
+        if (navigator.onLine) {
+            console.log('online')
+            // refresh notes from pb
+            notes = await getNotes();
+            tags = await getTags();
 
-        tags = await pruneObsoleteTags(notes, tags);
+            tags = await pruneObsoleteTags(notes, tags);
+
+            // save notes and tags to offline db
+            await saveNotesOffline(notes);
+            await saveTagsOffline(tags);
+        }
+        else {
+            console.log('offline')
+            // get notes and tags from offline db
+            notes = await getAllNotesOffline();
+            tags = await getAllTagsOffline();
+        }
 
         setAllNotes(notes);
         setAllTags(tags);

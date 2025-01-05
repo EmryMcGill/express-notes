@@ -55,8 +55,9 @@
 
 
 
-@media (max-width: 400px) {
+@media (max-width: 650px) {
   .main_container {
     margin-left: 0 !important;
+    align-items: center;
   }
 }
