@@ -35,16 +35,24 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
                     }
                     else {
                         if (navigator.onLine) {
-                            // create tag in pb and db
-                            const res = await createTag(tagTitles[i], user.id);
+                            // create tag local and remote
+                            const res = await createTag({
+                                title: tagTitles[i], 
+                                user: user.id
+                            });
                             await saveTagsOffline([res]);
                             newNoteTags.push(res.id);
                         }
                         else {
+                            // just create tag locally
                             const res = {
                                 title: tagTitles[i],
                                 user: user.id,
-                                id: Math.random()   
+                                isNew: true,
+                                toDelete: false,
+                                created: new Date(),
+                                updated: new Date(),
+                                id: (Date.now().toString() + Math.floor(Math.random() * 1e8).toString()).slice(0, 15)
                             };
                             await saveTagsOffline([res]);
                             newNoteTags.push(res.id);

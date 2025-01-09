@@ -85,12 +85,9 @@ export const PbProvider = ({ children }) => {
     }
 
     // return: tag {}
-    const createTag = async (title, user) => {
+    const createTag = async (data) => {
         try {
-            const res = await pb.collection('tags').create({
-                title: title,
-                user: user
-            });
+            const res = await pb.collection('tags').create(data);
             return res;
         }
         catch (err) {

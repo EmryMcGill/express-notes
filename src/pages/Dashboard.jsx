@@ -74,11 +74,13 @@ const Dashboard = () => {
         // remove obTags from pb and db
         for (let i = 0; i < obTags.length; i++) {
             if (navigator.onLine) {
+                // delete tag from local and remote
                 await deleteTag(obTags[i].id);
                 await deleteTagsOffline([obTags[i]]);
             }
             else {
-                await deleteTagsOffline([obTags[i]]);
+                // just delete from remote
+                await saveTagsOffline([{...obTags[i], toDelete: true}]);
             }
         }
         return finalTags;
@@ -88,11 +90,44 @@ const Dashboard = () => {
     const syncOnline = async () => {
 
         let remoteNotes = await getNotes();
-        console.log('remote notes: ', remoteNotes)
-        
         let localNotes = await getAllNotesOffline();
-        console.log('local notes: ', localNotes)
 
+        let remoteTags = await getTags();
+        let localTags = await getAllTagsOffline();
+
+
+        // go over any deleted local notes and delete on remote
+        const notesToDelete = localNotes.filter(note => note.toDelete === true);
+        for (const note of notesToDelete) {
+            if (remoteNotes.some(n => n.id === note.id)) {
+                await deleteNote(note.id);
+            }   
+            await deleteNotesOffline([note]);
+
+            localNotes = localNotes.filter(n => n.id !== note.id);
+            remoteNotes = localNotes.filter(n => n.id !== note.id);
+        }
+        // Go over any deleted local tags and delete on remote
+        const tagsToDelete = localTags.filter(tag => tag.toDelete === true);
+        for (const tag of tagsToDelete) {
+            if (remoteTags.some(t => t.id === tag.id)) {
+                await deleteTag(tag.id);
+            }
+            await deleteTagsOffline([tag]);
+
+            localTags = localTags.filter(t => t.id !== tag.id);
+            remoteTags = localTags.filter(t => t.id !== tag.id);
+        }
+
+        // go over any new local tags and save to remote
+        const tagsToAdd = localTags.filter(tag => tag.isNew === true);
+        for (const tag of tagsToAdd) {
+            await createTag({...tag, isNew: false});
+            await saveTagsOffline([{...tag, isNew: false}]);
+
+            localTags.push({...tag, isNew: false});
+            localTags.push({...tag, isNew: false});
+        }
         // go over any new local notes and save to remote
         const notesToAdd = localNotes.filter(note => note.isNew === true);
         for (const note of notesToAdd) {
@@ -103,15 +138,6 @@ const Dashboard = () => {
             remoteNotes.push({...note, isNew: false});
         }
 
-        // go over any deleted local notes and delete on remote
-        const notesToDelete = localNotes.filter(note => note.toDelete === true);
-        for (const note of notesToDelete) {
-            await deleteNote(note.id);
-            await deleteNotesOffline([note]);
-
-            localNotes = localNotes.filter(n => n.id !== note.id);
-            remoteNotes = localNotes.filter(n => n.id !== note.id);
-        }
 
         // go over any updated local notes and update on remote
         const notesToUpdate = localNotes.filter(note => note.toUpdate === true);
@@ -139,24 +165,37 @@ const Dashboard = () => {
                 localNotes.push(note);
             }
         });
+        // Go over any new remote tags and save locally
+        remoteTags.forEach(async tag => {
+            await saveTagsOffline([tag]);
+
+            if (!localTags.some(t => t.id === tag.id)) {
+                localTags.push(tag);
+            } else {
+                localTags = localTags.filter(t => t.id !== tag.id);
+                localTags.push(tag);
+            }
+        });
+
 
         // if any notes where deleted remotely, delete them on local
         localNotes.forEach(async note => {
             if (!remoteNotes.some(n => n.id === note.id)) {
                 // delete note locally
                 await deleteNotesOffline([note]);
-                
+
                 localNotes = localNotes.filter(n => n.id !== note.id);
             }
         });
-            
-        const remoteNotes2 = await getNotes();
-        console.log('remote notes: ', remoteNotes2)
-        
-        const localNotes2 = await getAllNotesOffline();
-        console.log('local notes: ', localNotes2)
+        // If any tags were deleted remotely, delete them locally
+        localTags.forEach(async tag => {
+            if (!remoteTags.some(t => t.id === tag.id)) {
+                // Delete tag locally
+                await deleteTagsOffline([tag]);
 
-        console.log('done sync')
+                localTags = localTags.filter(t => t.id !== tag.id);
+            }
+        });
     }
 
     // fetches notes and tags from pb
@@ -166,16 +205,12 @@ const Dashboard = () => {
         let tags = [];
         if (navigator.onLine) {
             console.log('online')
-            // refresh notes from pb
-            notes = await getNotes();
-
-            tags = await getTags();
-            tags = await pruneObsoleteTags(notes, tags);
 
             await syncOnline();
 
             notes = await getAllNotesOffline();
-            tags = await getTags();
+            tags = await getAllTagsOffline();
+            tags = await pruneObsoleteTags(notes, tags);
         }
         else {
             console.log('offline')
@@ -183,6 +218,7 @@ const Dashboard = () => {
             notes = await getAllNotesOffline();
             notes = notes.filter(note => note.toDelete === false);
             tags = await getAllTagsOffline();
+            tags = await pruneObsoleteTags(notes, tags);
         }
 
         setAllNotes(notes);
