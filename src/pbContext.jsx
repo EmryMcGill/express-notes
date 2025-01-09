@@ -2,7 +2,7 @@ import Pocketbase from 'pocketbase';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 
 // url for pb TODO: move this to .env
-const BASE_URL = 'http://localhost:8090';
+const BASE_URL = import.meta.env.VITE_PB_URI;
 
 // create the pb context
 const PbContext = createContext();
