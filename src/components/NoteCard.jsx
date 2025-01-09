@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import styles from './NoteCard.module.css';
 import { usePocket } from '../PbContext';
 import trash from '../../public/trash.svg';
+import { deleteNotesOffline, saveNotesOffline, saveTagsOffline } from '../db';
 
 const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
 
@@ -19,9 +20,16 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
 
     const handleUpdateNote = async () => {
         if (bodyRef.current.textContent === "") {
-            // note empty
-            // delete note
-            await deleteNote(note.id);
+            if (navigator.onLine) {
+                // delete note from both pb and db
+                await deleteNote(note.id);
+                await deleteNotesOffline([note]);
+            }
+            else {
+                // add toDelete label
+                await saveNotesOffline([{...note, toDelete: true}]);
+            }
+            
         }
         else {
             // extract tag titles from the input
@@ -40,29 +48,74 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
                         newNoteTags.push(curTag.id);
                     }
                     else {
-                        // api call: create tag
-                        const res = await createTag(tagTitles[i], user.id);
-                        newNoteTags.push(res.id);
+                        if (navigator.onLine) {
+                            // create tag in pb and db
+                            const res = await createTag(tagTitles[i], user.id);
+                            await saveTagsOffline([res]);
+                            newNoteTags.push(res.id);
+                        }
+                        else {
+                            const res = {
+                                title: tagTitles[i],
+                                user: user.id,
+                                created: new Date(),
+                                updated: new Date(),
+                                id: Math.random()   
+                            };
+                            await saveTagsOffline([res]);
+                            newNoteTags.push(res.id);
+                        }
                     }
                 }
             }
             
-            // api call: update note
-            await updateNote(note.id, body, user.id, newNoteTags);
+            if (navigator.onLine) {
+                // update note in pb and db
+                console.log(note.id)
+                const res = await updateNote(note.id, {
+                    body: body,
+                    user: user.id, 
+                    tags: newNoteTags
+                });
+                await saveNotesOffline([res]);
+            }
+            else {
+                // only update locally
+                await saveNotesOffline([{
+                    body: body,
+                    user: user.id,
+                    tags: newNoteTags,
+                    created: note.created,
+                    updated: new Date(),
+                    id: note.id,
+                    toUpdate: true,
+                    toDelete: false,
+                    isNew: false
+                }]);
+            }
             
             // close edit mode
             setIsEditNote(false);
             noteRef.current.style.zIndex = '1';
 
-            bodyRef.current.textContent = body;
+            // set the body to the updated input
+            bodyRef.current.innerHTML = body;
         }
           // refresh notes
           await refreshNotesAndTags();
     }
 
     const handleDeleteNote = async () => {
-        await deleteNote(note.id);
-
+        if (navigator.onLine) {
+            // delete note from pb + db
+            await deleteNote(note.id);
+            await deleteNotesOffline([note]);
+        }
+        else {
+            // add toDelete label
+            await saveNotesOffline([{...note, toDelete: true}]);
+        }
+        
         await refreshNotesAndTags();
     }
 
@@ -73,6 +126,8 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
         if (filteredTags.length !== 0) {
             tagListRef.current.style.marginTop = '1rem';
         }
+
+        //console.log(note)
     }, [note]);
 
     return (

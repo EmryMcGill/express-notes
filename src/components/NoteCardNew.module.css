@@ -10,7 +10,6 @@
     max-width: 300px;
     width: 300px;
     height: fit-content;
-    max-height: 300px;
     border-radius: 10px;
     background-color: var(--background-secondary);
     padding: 1rem;
@@ -18,8 +17,8 @@
 }
 
 .input_area {
-    max-width: 300px;
-    max-height: 300px;
+    overflow: auto;
+    max-height: 250px;
     word-wrap: break-word;
 }
 

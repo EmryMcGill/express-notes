@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import styles from './NoteCardNew.module.css';
 import { usePocket } from '../PbContext';
+import { saveNotesOffline, saveTagsOffline } from '../db';
 
 const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) => {
 
@@ -33,15 +34,50 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
                         newNoteTags.push(curTag.id);
                     }
                     else {
-                        // api call: create tag
-                        const res = await createTag(tagTitles[i], user.id);
-                        newNoteTags.push(res.id);
+                        if (navigator.onLine) {
+                            // create tag in pb and db
+                            const res = await createTag(tagTitles[i], user.id);
+                            await saveTagsOffline([res]);
+                            newNoteTags.push(res.id);
+                        }
+                        else {
+                            const res = {
+                                title: tagTitles[i],
+                                user: user.id,
+                                id: Math.random()   
+                            };
+                            await saveTagsOffline([res]);
+                            newNoteTags.push(res.id);
+                        }   
                     }
                 }
             }
+
+            if (navigator.onLine) {
+                // create note in pb and db
+                const res = await createNote({
+                    body: body,
+                    user: user.id,
+                    tags: newNoteTags,
+                    toDelete: false
+                });
+                await saveNotesOffline([res]);
+            }
+            else {
+                // just create note in db
+                await saveNotesOffline([{
+                    body: body,
+                    user: user.id,
+                    tags: newNoteTags,
+                    isNew: true,
+                    toDelete: false,
+                    toUpdate: false,
+                    created: new Date(),
+                    updated: new Date(),
+                    id: (Date.now().toString() + Math.floor(Math.random() * 1e8).toString()).slice(0, 15)   
+                }])
+            }
             
-            // api call: create note
-            await createNote(body, user.id, newNoteTags);
 
             // close new note
             toggleIsNewNote();

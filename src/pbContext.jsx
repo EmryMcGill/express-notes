@@ -9,7 +9,8 @@ const PbContext = createContext();
 
 export const PbProvider = ({ children }) => {
     // define the pb object 
-    const pb = useMemo(() => new Pocketbase(BASE_URL));
+    //const pb = useMemo(() => new Pocketbase(BASE_URL));
+    const pb = new Pocketbase(BASE_URL);
 
     // define user
     const [user, setUser] = useState(pb.authStore.record);
@@ -26,9 +27,8 @@ export const PbProvider = ({ children }) => {
     // return: [] of notes
     const getNotes = async () => {
         try {
-            const res = await pb.collection('notes').getFullList({
-                sort: '-updated'
-            });
+            let res = await pb.collection('notes').getFullList();
+            //res = res.sort((a,b) => new Date(a.updated) - new Date(b.updated));
             return res;
         }
         catch (err) {
@@ -38,13 +38,10 @@ export const PbProvider = ({ children }) => {
     }
 
     // return: note {}
-    const createNote = async (body, user, tags) => {
+    const createNote = async (data) => {
+        console.log('create note');
         try {
-            const res = await pb.collection('notes').create({
-                body: body,
-                user: user,
-                tags: tags
-            });
+            const res = await pb.collection('notes').create(data);
             return res;
         }
         catch (err) {
@@ -53,17 +50,13 @@ export const PbProvider = ({ children }) => {
     }
 
     // return: note {}
-    const updateNote = async (noteId, body, user, tags) => {
+    const updateNote = async (noteId, data) => {
         try {
-            const res = await pb.collection('notes').update(noteId, {
-                body: body,
-                user: user,
-                tags: tags
-            });
+            const res = await pb.collection('notes').update(noteId, data);
             return res;
         }
         catch (err) {
-            console.log(err);
+            console.log(err.data);
         }
     }
 

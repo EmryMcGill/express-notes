@@ -12,6 +12,8 @@ const dbPromise = openDB('pocketbase-db', 1, {
   },
 });
 
+// input: [] of notes
+// returnn: null
 export async function saveNotesOffline(notes) {
     const db = await dbPromise;
     notes.forEach(async (note) => await db.put('note', note))
@@ -22,12 +24,24 @@ export async function getAllNotesOffline() {
     return await db.getAll('note');
 }
 
+// input: [] of notes
+// return: null
+export async function deleteNotesOffline(notes) {
+  const db = await dbPromise;
+  notes.forEach(async (note) => await db.delete('note', note.id));
+}
+
 export async function saveTagsOffline(tags) {
     const db = await dbPromise;
-    tags.forEach(async (tag) => await db.put('tag', tag))
+    tags.forEach(async (tag) => await db.put('tag', tag));
 }
 
 export async function getAllTagsOffline() {
     const db = await dbPromise;
     return await db.getAll('tag');
+}
+
+export async function deleteTagsOffline(tags) {
+  const db = await dbPromise;
+  tags.forEach(async (tag) => await db.delete('tag', tag.id));
 }
