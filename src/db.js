@@ -21,7 +21,9 @@ export async function saveNotesOffline(notes) {
 
 export async function getAllNotesOffline() {
     const db = await dbPromise;
-    return await db.getAll('note');
+    let notes = await db.getAll('note');
+    notes = notes.sort((a, b) => new Date(b.updated) - new Date(a.updated));
+    return notes;
 }
 
 // input: [] of notes

@@ -35,10 +35,10 @@ const Dashboard = () => {
     // return: null
     const changePageMargin = (isMenu) => {
         if (isMenu) {
-            mainRef.current.style.marginLeft = "-250px";
+            mainRef.current.style.marginLeft = "0px";
         }
         else {
-            mainRef.current.style.marginLeft = "0px";
+            mainRef.current.style.marginLeft = "250px";
         }
     }
 

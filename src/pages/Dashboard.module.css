@@ -13,6 +13,7 @@
     padding: 1rem;
     transition: all 0.3s;
     container-type: inline-size;
+    margin-left: 250px;
 }
 
 .input_container {
@@ -33,21 +34,19 @@
 }
 
 .notes_list {
-  column-count: 1;
-  overflow: hidden;
   padding: 0.5rem;
-
-  @container (min-width: 650px) {
+ 
+  @container (min-width: 700px) {
     /* Wide layout stuff here */
     column-count: 2;
   }
 
-  @container (min-width: 950px) {
+  @container (min-width: 1050px) {
     /* Wide layout stuff here */
     column-count: 3;
   }
 
-  @container (min-width: 1250px) {
+  @container (min-width: 1400px) {
     /* Wide layout stuff here */
     column-count: 4;
   }

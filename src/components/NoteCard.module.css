@@ -7,8 +7,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 300px;
-    max-width: 300px;
+    width: 350px;
+    max-width: 350px;
     height: fit-content;
     border-radius: 10px;
     background-color: var(--background-secondary);
@@ -75,6 +75,25 @@ background-color: black;
 cursor: default;
 }
 
+.overlay_dark {
+    position: absolute; 
+    z-index: 2;
+    opacity: 0.4; 
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    width: 100%; 
+    height: 100%; 
+    background-color: Black; 
+    color: White;
+}
+
+.overlay_dark:hover {
+background-color: black;
+cursor: default;
+}
+
 .close_btn {
     position: absolute;
     margin-top: 0.5rem;
@@ -108,4 +127,40 @@ cursor: default;
     color: grey;
     font-size: 0.8rem;
     margin-top: 0.5rem;
+}
+
+.delete_warning_card {
+    position: fixed;
+    display: flex;
+    width: fit-content;
+    align-items: start;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    background-color: var(--background-secondary);
+    z-index: 3;
+}
+
+.warning_btn_container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.warning_btns {
+    margin-top: 0.5rem;
+    padding: 0.3rem;
+}
+
+.warning_btns_grey {
+    background-color: var(--background-primary);
+    color: black;
+}
+
+.warning_btns_grey:hover {
+    background-color: var(--background-primary-tint);
 }

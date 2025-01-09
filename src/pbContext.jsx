@@ -27,8 +27,9 @@ export const PbProvider = ({ children }) => {
     // return: [] of notes
     const getNotes = async () => {
         try {
-            let res = await pb.collection('notes').getFullList();
-            //res = res.sort((a,b) => new Date(a.updated) - new Date(b.updated));
+            let res = await pb.collection('notes').getFullList({
+                sort: '-updated',
+            });
             return res;
         }
         catch (err) {

@@ -12,11 +12,13 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
     // local state
     const [noteTags, setNoteTags] = useState([]);
     const [isEditNote, setIsEditNote] = useState(false);
+    const [isDeleteWarning, setIsDeleteWarning] = useState(false);
 
     // refs
     const tagListRef = useRef();
     const noteRef = useRef();
     const bodyRef = useRef();
+    const warningRef = useRef();
 
     const handleUpdateNote = async () => {
         if (bodyRef.current.textContent === "") {
@@ -111,6 +113,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
     }
 
     const handleDeleteNote = async () => {
+        
         if (navigator.onLine) {
             // delete note from pb + db
             await deleteNote(note.id);
@@ -137,6 +140,19 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
 
     return (
         <div className={styles.note_container}>
+            {isDeleteWarning ?
+            <div>
+                <button onClick={() => setIsDeleteWarning(false)} className={styles.overlay_dark}></button>
+                <div ref={warningRef} className={styles.delete_warning_card}>
+                    <p>Delete note?</p>
+                    <div className={styles.warning_btn_container}>
+                        <button className={`${styles.warning_btns} ${styles.warning_btns_grey}`} onClick={() => setIsDeleteWarning(false)}>Cancel</button>
+                        <button className={styles.warning_btns} onClick={handleDeleteNote}>Delete</button>
+                    </div>
+                </div>
+            </div>
+            : ''}
+
             {isEditNote?
             <button onClick={handleUpdateNote} className={styles.overlay}></button>
             : ''}
@@ -155,7 +171,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
                     noteRef.current.style.zIndex = '3';
                 }}></p>
 
-                <button onClick={handleDeleteNote} className={styles.btn_icon}>
+                <button onClick={() => setIsDeleteWarning(true)} className={styles.btn_icon}>
                     <img className={styles.trash_icon} src={trash} alt="delete" />
                 </button>
 
