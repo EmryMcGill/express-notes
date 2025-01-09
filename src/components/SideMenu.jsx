@@ -44,7 +44,7 @@ const SideMenu = ({
     return (
         <div ref={menuRef} className={styles.side_menu_outer}>
             <div className={styles.side_menu}>
-                <a className={styles.h1} href="/app">Espresso Notes ☕️</a>
+                <a className={styles.h1} href="/app">Expresso Notes ☕️</a>
 
                 <button onClick={toggleIsNewNote} className={styles.btn_new_note}>+ New Note</button>
                 

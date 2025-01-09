@@ -1,3 +1,82 @@
 .landing {
+    background-color: var(--background-primary);
+    height: 100vh;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    display: flex;
+    background-color: var(--background-secondary);
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.header_right {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    background: none;
+    color: black;
+    font-weight: 600;
+}
+
+.btn:hover {
+    background-color: var(--background-primary);
+}
+
+.content {
+    padding: 3rem;
+}
+
+.hero_container {
+    display: flex;
+    justify-content: space-around;
+    height: calc(100vh - 6rem);
+}
+
+.hero_text {
+    font-size: 3rem;
+}
+
+.hero_img {
+    width: 50%;
+    height: fit-content
+}
+
+.info_section {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 6rem;
+}
+
+.info_section:last-of-type {
+    margin-bottom: 0;
+}
+
+.info_text {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 40%;
+}
+
+.info_title {
+    font-size: 2rem;
+}
+
+.info_desc {
+    font-size: 1.5rem;
+    color: grey;
+}
+
+.info_img {
+    width: 40%;
     background-color: red;
 }
