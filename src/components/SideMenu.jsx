@@ -2,6 +2,7 @@
 import styles from "./SideMenu.module.css";
 import menu from '../../public/menu.svg';
 import { useEffect, useRef, useState } from "react";
+import { usePocket } from "../PbContext"; 
 
 const SideMenu = ({ 
     changePageMargin, 
@@ -10,6 +11,8 @@ const SideMenu = ({
     tags,
     activeTag
  }) => {
+
+    const { pb } = usePocket();
 
     // variables
     const menuRef = useRef();
@@ -35,6 +38,15 @@ const SideMenu = ({
         e.target.style.backgroundColor = '#e6ebf0';
     }
 
+    const handleLogout = async () => {
+        try {
+            await pb.authStore.clear();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
         if (activeTag === null) {
             tagListRef.current.childNodes[0].style.backgroundColor = '#e6ebf0';
@@ -43,7 +55,7 @@ const SideMenu = ({
 
     return (
         <div ref={menuRef} className={styles.side_menu_outer}>
-            <div className={styles.side_menu}>
+            <div className={styles.side_menu}>                    
                 <a className={styles.h1} href="/app">Expresso Notes ☕️</a>
 
                 <button onClick={toggleIsNewNote} className={styles.btn_new_note}>+ New Note</button>
@@ -63,6 +75,8 @@ const SideMenu = ({
                             {tag.title}</button>
                     )}
                 </div>
+
+                <button onClick={handleLogout} className={styles.logout_btn}>Logout</button>
             </div>
 
             <button onClick={toggleMenu} className={styles.btn_icon}>

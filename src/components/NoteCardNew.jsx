@@ -5,7 +5,7 @@ import { saveNotesOffline, saveTagsOffline } from '../db';
 
 const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) => {
 
-    const { pb, user, createNote, createTag } = usePocket();
+    const { pb, createNote, createTag } = usePocket();
     const inputRef = useRef();
     const [defaultTag, setDefaultTag] = useState(null);
 
@@ -38,7 +38,7 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
                             // create tag local and remote
                             const res = await createTag({
                                 title: tagTitles[i], 
-                                user: user.id
+                                user: pb.authStore.record.id
                             });
                             await saveTagsOffline([res]);
                             newNoteTags.push(res.id);
@@ -47,7 +47,7 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
                             // just create tag locally
                             const res = {
                                 title: tagTitles[i],
-                                user: user.id,
+                                user: pb.authStore.record.id,
                                 isNew: true,
                                 toDelete: false,
                                 created: new Date(),
@@ -63,9 +63,10 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
 
             if (navigator.onLine) {
                 // create note in pb and db
+                //console.log('user on creation:', user.id)
                 const res = await createNote({
                     body: body,
-                    user: user.id,
+                    user: pb.authStore.record.id,
                     tags: newNoteTags,
                     toDelete: false
                 });
@@ -75,7 +76,7 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
                 // just create note in db
                 await saveNotesOffline([{
                     body: body,
-                    user: user.id,
+                    user: pb.authStore.record.id,
                     tags: newNoteTags,
                     isNew: true,
                     toDelete: false,

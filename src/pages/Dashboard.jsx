@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SideMenu from "../components/SideMenu";
 import NoteCard from "../components/noteCard";
 import NoteCardNew from "../components/NoteCardNew";
 import styles from './Dashboard.module.css';
-import { PbProvider, usePocket } from "../PbContext";
+import { usePocket } from "../PbContext";
 import { 
     saveNotesOffline, 
     getAllNotesOffline,
@@ -17,7 +17,6 @@ const Dashboard = () => {
     const mainRef = useRef();
     const searchRef = useRef();
     const { 
-        pb,
         getNotes, 
         getTags, 
         deleteTag, 
@@ -230,6 +229,7 @@ const Dashboard = () => {
         }
         else {
             setDisplayedNotes([...notes]);
+            setActiveTag(null);
         }
     };
 

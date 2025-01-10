@@ -1,16 +1,19 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
+import styles from "./Login.module.css";
 
 import { usePocket } from "../PbContext";
 
 const Register = () => {
 
-    const { pb } = usePocket();
+    const { register } = usePocket();
     const navigate = useNavigate();
 
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
+
+    const [errMsg, setErrMsg] = useState('');
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
@@ -22,30 +25,32 @@ const Register = () => {
             "passwordConfirm": passwordConfirmRef.current.value
         }
 
-        // attempt to register user
-        try {
-            await pb.collection("users").create(data);
+        // try to register new user
+        const res = await register(data);
 
+        if (res === null) {
             // redirect to login page on sucess
             navigate('/login');
         }
-        catch (err) {
-            console.log('error with register')
-            console.log(err?.data);
+        else {
+            setErrMsg(res);
         }
     }
 
     return (
-        <section>
-            <h2>Login</h2>
+        <section className={styles.login}>
+            <form onSubmit={handleOnSubmit} className={styles.form}>
+                <h2 className={styles.h2}>Register</h2>
+                
+                <input className={styles.input} onFocus={() => setErrMsg('')} type="email" ref={emailRef} />
+                <input className={styles.input} onFocus={() => setErrMsg('')} type="password" ref={passwordRef} />
+                <input className={styles.input} onFocus={() => setErrMsg('')} type="password" ref={passwordConfirmRef} />
 
-            <form onSubmit={handleOnSubmit}>
-                <input type="email" ref={emailRef} />
-                <input type="password" ref={passwordRef} />
-                <input type="password" ref={passwordConfirmRef} />
+                <p className={styles.err_msg}>{errMsg}</p>
 
-                <button>Register</button>
+                <button className={styles.btn_submit}>Register</button>
             </form>
+            <p>Already have an account? <a href="/login">Login</a></p> 
         </section>
     );
 }

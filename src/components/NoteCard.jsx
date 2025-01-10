@@ -8,7 +8,7 @@ import { deleteNotesOffline, saveNotesOffline, saveTagsOffline } from '../db';
 const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
 
     // global state
-    const { pb, updateNote, user, deleteNote, createTag } = usePocket();
+    const { pb, updateNote, deleteNote, createTag } = usePocket();
     // local state
     const [noteTags, setNoteTags] = useState([]);
     const [isEditNote, setIsEditNote] = useState(false);
@@ -54,7 +54,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
                             // create tag in pb and db
                             const res = await createTag({
                                 title: tagTitles[i], 
-                                user: user.id
+                                user: pb.authStore.record.id
                             });
                             await saveTagsOffline([res]);
                             newNoteTags.push(res.id);
@@ -62,7 +62,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
                         else {
                             const res = {
                                 title: tagTitles[i],
-                                user: user.id,
+                                user: pb.authStore.record.id,
                                 isNew: true,
                                 toDelete: false,
                                 created: new Date(),
@@ -81,7 +81,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
                 console.log(note.id)
                 const res = await updateNote(note.id, {
                     body: body,
-                    user: user.id, 
+                    user: pb.authStore.record.id, 
                     tags: newNoteTags
                 });
                 await saveNotesOffline([res]);
@@ -90,7 +90,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
                 // only update locally
                 await saveNotesOffline([{
                     body: body,
-                    user: user.id,
+                    user: pb.authStore.record.id,
                     tags: newNoteTags,
                     created: note.created,
                     updated: new Date(),

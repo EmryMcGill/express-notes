@@ -76,7 +76,16 @@
     color: grey;
 }
 
-.info_img {
+.info_vid {
     width: 40%;
-    background-color: red;
+    background-color: #C8C7D5;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    background-color: var(--background-secondary);
+    padding: 1.5rem;
 }

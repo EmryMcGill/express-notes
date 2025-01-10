@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import styles from "./Login.module.css";
 
@@ -6,11 +6,13 @@ import { usePocket } from "../PbContext";
 
 const Login = () => {
 
-    const { pb, user } = usePocket();
+    const { pb, user, login } = usePocket();
     const navigate = useNavigate();
 
     const emailRef = useRef();
     const passwordRef = useRef();
+
+    const [errMsg, setErrMsg] = useState('');
 
     useEffect(() => {
         // check if user is logged in
@@ -23,15 +25,14 @@ const Login = () => {
         e.preventDefault();
 
         // attempt to login user
-        try {
-            await pb.collection("users").authWithPassword(emailRef.current.value, passwordRef.current.value);
+        const res = await login(emailRef.current.value, passwordRef.current.value);
 
+        if (res === null) {
             // navigate to app
             navigate('/app');
-
         }
-        catch (err) {
-            console.log(err.data.message);
+        else {
+            setErrMsg(res);
         }
     }
 
@@ -40,11 +41,15 @@ const Login = () => {
             <form onSubmit={handleOnSubmit} className={styles.form}>
                 <h2 className={styles.h2}>Login</h2>
 
-                <input className={styles.input} type="email" ref={emailRef} placeholder="example@email.com" />
-                <input className={styles.input} type="password" ref={passwordRef} placeholder="password" />
+                <input onFocus={() => setErrMsg('')} className={styles.input} type="email" ref={emailRef} placeholder="example@email.com" />
+                <input onFocus={() => setErrMsg('')} className={styles.input} type="password" ref={passwordRef} placeholder="password" />
+
+                <p className={styles.err_msg}>{errMsg}</p>
 
                 <button className={styles.btn_submit}>Login</button>
             </form>
+            
+            <p>Don't have an account? <a href="/register">Sign Up</a></p> 
         </section>
     );
 }

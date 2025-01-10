@@ -97,7 +97,7 @@ cursor: default;
 .close_btn {
     position: absolute;
     margin-top: 0.5rem;
-    margin-left: 250px;
+    margin-left: 300px;
     padding: 0.3rem;
     z-index: 3;
 }

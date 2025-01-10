@@ -22,6 +22,32 @@ export const PbProvider = ({ children }) => {
 
     // api calls
 
+    // AUTH
+
+    const login = async (email, pass) => {
+        // attempt to login user
+        try {
+            await pb.collection("users").authWithPassword(email, pass);
+            return null;
+        }
+        catch (err) {
+            console.log(err.data.message);
+            return err.data.message;
+        }
+    }
+
+    const register = async (data) => {
+        // attempt to register user
+        try {
+            await pb.collection("users").create(data);
+            return null;
+        }
+        catch (err) {
+            console.log('error with register')
+            return err?.data.message;
+        }
+    }
+
     //--------- NOTES --------------
 
     // return: [] of notes
@@ -40,7 +66,6 @@ export const PbProvider = ({ children }) => {
 
     // return: note {}
     const createNote = async (data) => {
-        console.log('create note');
         try {
             const res = await pb.collection('notes').create(data);
             return res;
@@ -116,7 +141,9 @@ export const PbProvider = ({ children }) => {
             deleteNote,
             getTags, 
             createTag,
-            deleteTag
+            deleteTag,
+            login,
+            register
         }}>
         {children}
         </PbContext.Provider>
