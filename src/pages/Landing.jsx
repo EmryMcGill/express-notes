@@ -1,11 +1,26 @@
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router";
 import styles from "./Landing.module.css";
+import { usePocket } from "../PbContext";
 
 const Landing = () => {
 
+    const navigate = useNavigate();
     const videoRef = useRef();
+    const { user } = usePocket();
+
+    const handleLoginBtn = () => {
+        navigate('/login');
+    }
+
+    const handleRegisterBtn = () => {
+        navigate('/register');
+    }
 
     useEffect(() => {
+        if (user) {
+            navigate('/app');
+        }
         videoRef.current.playbackRate = 2;
     }, []);
 
@@ -13,24 +28,23 @@ const Landing = () => {
     <section className={styles.landing}>
         <div className={styles.header}>
             <h2 className={styles.title}>Expresso Notes ☕️</h2>
+            <h2 className={styles.title_icon}>☕️</h2>
             <div className={styles.header_right}>
-                <button className={styles.btn}>Login</button>
-                <button>Sign Up</button>
+                <button className={styles.btn} onClick={handleLoginBtn}>Login</button>
+                <button onClick={handleRegisterBtn}>Sign Up</button>
             </div>
         </div>
 
         <div className={styles.content}>
             <div className={styles.hero_container}>
-                <div className={styles.info_text}>
-                    <h1 className={styles.hero_text}>
+                <div className={styles.hero_text}>
+                    <h1 className={styles.hero_title}>
                         Create and<br/>organize notes<br/>efficiently
                     </h1>
                     <p className={styles.info_desc}>
                         Easily jot down notes and keep everything organized.
                     </p>
                 </div>
-                
-
                 <img className={styles.hero_img} src="/hero.png" alt="Hero Image" />
             </div>
 
@@ -45,11 +59,13 @@ const Landing = () => {
                     </p>
                 </div>
 
-                <img className={styles.info_img} src="" alt="offline support" />
+                <video ref={videoRef} className={styles.info_vid} autoPlay muted loop>
+                    <source src='/tag_demo.mov' />
+                </video>
             </div>
 
             <div className={styles.info_section}>
-                <video ref={videoRef} className={styles.info_vid} autoPlay muted loop>
+                <video ref={videoRef} className={`${styles.info_vid} ${styles.info_vid_top}`} autoPlay muted loop>
                     <source src='/tag_demo.mov' />
                 </video>
 
@@ -60,17 +76,15 @@ const Landing = () => {
                     them into meaningful categories.
                     </p>
                 </div>
+
+                <video ref={videoRef} className={`${styles.info_vid} ${styles.info_vid_bot}`} autoPlay muted loop>
+                    <source src='/tag_demo.mov' />
+                </video>
             </div>
         </div>
 
         <div className={styles.footer}>
-            <div className={styles.header_right}>
-                <button className={styles.btn}>App</button>
-                <button className={styles.btn}>Login</button>
-                <button className={styles.btn}>Sign Up</button>
-            </div>
             <p>Made by Emry Mcgill</p>
-            
         </div>
     </section>
     );

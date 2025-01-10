@@ -33,6 +33,13 @@
     background-color: lightgrey;
 }
 
+.new_note_btn_mobile {
+  display: none;
+  width: 100%;
+  max-width: 350px;
+  margin-top: 1rem;
+}
+
 .notes_list {
   padding: 0.5rem;
  
@@ -53,10 +60,13 @@
 }
 
 
-
 @media (max-width: 650px) {
   .main_container {
     margin-left: 0 !important;
     align-items: center;
+  }
+
+  .new_note_btn_mobile {
+    display: block;
   }
 }

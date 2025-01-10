@@ -3,9 +3,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
     height: 100vh;
     width: 100%;
     background-color: var(--background-primary);
+}
+
+.title {
+    position: absolute;
+    top: 1rem;
+}
+
+.title_link {
+    text-decoration: none;
+    color: black;
 }
 
 .form {
@@ -42,4 +53,10 @@
 
 .err_msg {
     color: tomato;
+}
+
+@media (max-width: calc(400px + 2rem)) {
+    .content {
+        width: 100%;
+    }
 }

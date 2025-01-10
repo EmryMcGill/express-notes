@@ -38,18 +38,21 @@ const Login = () => {
 
     return (
         <section className={styles.login}>
-            <form onSubmit={handleOnSubmit} className={styles.form}>
-                <h2 className={styles.h2}>Login</h2>
+                    <h2 className={styles.title}>
+                        <a className={styles.title_link} href="/">Expresso Notes ☕️</a>
+                    </h2>                
+                    <form onSubmit={handleOnSubmit} className={styles.form}>
+                    <h2 className={styles.h2}>Login</h2>
 
-                <input onFocus={() => setErrMsg('')} className={styles.input} type="email" ref={emailRef} placeholder="example@email.com" />
-                <input onFocus={() => setErrMsg('')} className={styles.input} type="password" ref={passwordRef} placeholder="password" />
+                    <input onFocus={() => setErrMsg('')} className={styles.input} type="email" ref={emailRef} placeholder="example@email.com" />
+                    <input onFocus={() => setErrMsg('')} className={styles.input} type="password" ref={passwordRef} placeholder="password" />
 
-                <p className={styles.err_msg}>{errMsg}</p>
+                    <p className={styles.err_msg}>{errMsg}</p>
 
-                <button className={styles.btn_submit}>Login</button>
-            </form>
-            
-            <p>Don't have an account? <a href="/register">Sign Up</a></p> 
+                    <button className={styles.btn_submit}>Login</button>
+                </form>
+                
+                <p>Don't have an account? <a href="/register">Sign Up</a></p> 
         </section>
     );
 }

@@ -39,12 +39,36 @@ const Register = () => {
 
     return (
         <section className={styles.login}>
-            <form onSubmit={handleOnSubmit} className={styles.form}>
+            <h2 className={styles.title}>
+                <a className={styles.title_link} href="/">Expresso Notes ☕️</a>
+            </h2>
+            <form 
+                onSubmit={handleOnSubmit} 
+                className={styles.form} 
+            >
                 <h2 className={styles.h2}>Register</h2>
                 
-                <input className={styles.input} onFocus={() => setErrMsg('')} type="email" ref={emailRef} />
-                <input className={styles.input} onFocus={() => setErrMsg('')} type="password" ref={passwordRef} />
-                <input className={styles.input} onFocus={() => setErrMsg('')} type="password" ref={passwordConfirmRef} />
+                <input 
+                    className={styles.input} 
+                    onFocus={() => setErrMsg('')} 
+                    type="email" 
+                    ref={emailRef} 
+                    placeholder="example@email.com" 
+                />
+                <input 
+                    className={styles.input} 
+                    onFocus={() => setErrMsg('')} 
+                    type="password" 
+                    ref={passwordRef} 
+                    placeholder="password" 
+                />
+                <input 
+                    className={styles.input} 
+                    onFocus={() => setErrMsg('')} 
+                    type="password" 
+                    ref={passwordConfirmRef} 
+                    placeholder="password" 
+                />
 
                 <p className={styles.err_msg}>{errMsg}</p>
 

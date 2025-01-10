@@ -251,6 +251,7 @@ const Dashboard = () => {
                 <input onChange={search} ref={searchRef} placeholder="Search notes" className={styles.input} type="text" />
             </div>
             <div className={styles.notes_list}>
+                <button onClick={toggleIsNewNote} className={styles.new_note_btn_mobile}>+ New Note</button>
                 {isNewNote ? <NoteCardNew tags={allTags} activeTag={activeTag} refreshNotesAndTags={refreshNotesAndTags} toggleIsNewNote={toggleIsNewNote} /> : ''}
 
                 {displayedNotes === undefined ? 'loading...' : displayedNotes.length === 0 && !isNewNote ? 'no notes found' : displayedNotes.map((note) => 

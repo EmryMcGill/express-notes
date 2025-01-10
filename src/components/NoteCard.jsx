@@ -20,6 +20,16 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
     const bodyRef = useRef();
     const warningRef = useRef();
 
+    const handleLongPress = (e) => {
+        const pressTimer = setTimeout(() => {
+            setIsDeleteWarning(true);
+          }, 500);
+
+        e.target.addEventListener('touchend', () => {
+        clearTimeout(pressTimer);
+        });
+    }
+
     const handleUpdateNote = async () => {
         if (bodyRef.current.textContent === "") {
             if (navigator.onLine) {
@@ -160,6 +170,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
             <section 
             ref={noteRef} 
             className={styles.note_card}
+            onTouchStart={handleLongPress}
              >
                 <p 
                 ref={bodyRef}
@@ -186,11 +197,10 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
                       minute: '2-digit',
                       hour12: true
                 })}</p>
-            </section>
-
-            {isEditNote?
+                {isEditNote?
             <button onClick={handleUpdateNote} className={styles.close_btn}>Close</button>
             : ''}
+            </section>
         </div>
     );
 }

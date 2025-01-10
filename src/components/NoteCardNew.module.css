@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
     max-width: 350px;
-    width: 350px;
+    width: 100%;
     height: fit-content;
     border-radius: 10px;
     background-color: var(--background-secondary);
@@ -50,9 +50,7 @@
 }
 
 .close_btn {
-    position: absolute;
-    margin-top: 0.5rem;
-    margin-left: 300px;
     padding: 0.3rem;
-    z-index: 3;
+    width: fit-content;
+    margin-left: auto;
 }

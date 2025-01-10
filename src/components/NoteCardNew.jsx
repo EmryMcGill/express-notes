@@ -122,11 +122,8 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
                 {defaultTag ? 
                 <p className={styles.tag}>{defaultTag}</p> 
                 : ''}
-                
-            </section>
-
-            <button onClick={handleNewNote} className={styles.close_btn}>Close</button>
-            
+                <button onClick={handleNewNote} className={styles.close_btn}>Close</button>
+            </section>            
         </div>
         
     );

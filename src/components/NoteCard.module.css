@@ -7,7 +7,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 100%;
     max-width: 350px;
     height: fit-content;
     border-radius: 10px;
@@ -16,6 +16,12 @@
 }
 
 .note_card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: scale(1.03);
+    transition: all 0.1s ease;
+}
+
+.note_card:active {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transform: scale(1.03);
     transition: all 0.1s ease;
@@ -95,11 +101,9 @@ cursor: default;
 }
 
 .close_btn {
-    position: absolute;
-    margin-top: 0.5rem;
-    margin-left: 300px;
     padding: 0.3rem;
-    z-index: 3;
+    width: fit-content;
+    margin-left: auto;
 }
 
 .btn_icon {
@@ -163,4 +167,11 @@ cursor: default;
 
 .warning_btns_grey:hover {
     background-color: var(--background-primary-tint);
+}
+
+
+@media (max-width: 700px) {
+    .btn_icon {
+        display: block;
+    }
 }
