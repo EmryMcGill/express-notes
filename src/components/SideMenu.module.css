@@ -83,7 +83,6 @@
 
 @media (max-width: 650px) {
     .side_menu_outer {
-        position: fixed;
-        transform: translateX(-250px);
+        transform: translateX(-250px) !important;
     }  
 } 

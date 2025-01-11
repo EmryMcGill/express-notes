@@ -19,7 +19,7 @@ const SideMenu = ({
     const tagListRef = useRef();
     const [isMenu, setIsMenu] = useState(true);
 
-    const toggleMenu = () => {
+    const toggleMenu = () => {
         if (isMenu) {
             menuRef.current.style.transform = "translateX(-250px)";
             changePageMargin(isMenu);
