@@ -21,12 +21,14 @@ const SideMenu = ({
 
     const toggleMenu = () => {
         if (isMenu) {
-            menuRef.current.style.transform = "translateX(-250px)";
+            //menuRef.current.style.transform = "translateX(-250px)";
+            //menuRef.current.classList.add('open');
             changePageMargin(isMenu);
             setIsMenu(false);
         }
         else {
-            menuRef.current.style.transform = "translateX(0px)";
+            //menuRef.current.style.transform = "translateX(0)";
+            //menuRef.current.classList.remove('open');
             changePageMargin(isMenu)
             setIsMenu(true);
         }
@@ -51,10 +53,22 @@ const SideMenu = ({
         if (activeTag === null) {
             tagListRef.current.childNodes[0].style.backgroundColor = '#e6ebf0';
         }
+
+        const mediaQuery = window.matchMedia("(max-width: 650px)");
+
+        const handleMediaChange = (e) => {
+            if (e.matches) {
+                setIsMenu(false);
+            }
+        };
+        if (mediaQuery.matches) {
+            setIsOpen(false);
+        }
+        mediaQuery.addEventListener("change", handleMediaChange);
     }, []);
 
     return (
-        <div ref={menuRef} className={styles.side_menu_outer}>
+        <div ref={menuRef} className={`${styles.side_menu_outer} ${isMenu ? styles.open : ''}`}>
             <div className={styles.side_menu}>                    
                 <a className={styles.h1} href="/app">Expresso Notes ☕️</a>
 

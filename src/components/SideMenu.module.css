@@ -6,6 +6,11 @@
     transition: all 0.3s;
     width: fit-content;
     z-index: 2;
+    transform: translateX(-250px);
+}
+
+.open {
+    transform: translateX(0px);
 }
 
 .side_menu {
@@ -81,8 +86,3 @@
     }    
 }
 
-@media (max-width: 650px) {
-    .side_menu_outer {
-        transform: translateX(-250px) !important;
-    }  
-} 
