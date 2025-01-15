@@ -134,12 +134,12 @@ cursor: default;
 .date_container {
     display: flex;
     justify-content: space-between;
+    margin-top: 0.5rem;
 }
 
 .date {
     color: grey;
     font-size: 0.8rem;
-    margin-top: 0.5rem;
 }
 
 .delete_warning_card {
