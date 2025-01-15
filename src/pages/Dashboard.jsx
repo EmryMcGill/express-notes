@@ -63,7 +63,7 @@ const Dashboard = () => {
 
         // remove obTags from pb and db
         for (let i = 0; i < obTags.length; i++) {
-            if (navigator.onLine) {
+            if (await getNotes() !== null) {
                 // delete tag from local and remote
                 await deleteTag(obTags[i].id);
                 await deleteTagsOffline([obTags[i]]);
