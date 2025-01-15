@@ -20,6 +20,7 @@
     height: 100vh;
     background-color: var(--background-secondary);
     padding: 1rem;
+    z-index: 3;
 }
 
 .h1 {
@@ -43,6 +44,12 @@
     margin-bottom: 1rem;
 }
 
+@media (max-width: 650px) {
+    .btn_new_note {
+        display: none;
+    }
+}
+
 .btn_tag {
     padding: 0.3rem;
     padding-left: 0.5rem;
@@ -64,6 +71,7 @@
     width: fit-content;
     background: none;
     margin: 0.5rem;
+    z-index: 3;
 }
 
 .btn_icon:hover {
@@ -81,4 +89,16 @@
 }
 
 
-
+.overlay {
+    position: absolute; 
+    z-index: 2;
+    opacity: 0.2; 
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    background-color: Black; 
+    color: White;
+}

@@ -74,6 +74,7 @@ const SideMenu = ({
 
     return (
         <div ref={menuRef} className={`${styles.side_menu_outer} ${isMenu ? styles.open : ''}`}>
+            {isMenu ? <div onClick={toggleMenu} className={styles.overlay}></div> : ''}
             <div className={styles.side_menu}>                    
                 <a className={styles.h1} href="/app">Expresso Notes ☕️</a>
 
