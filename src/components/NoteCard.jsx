@@ -183,24 +183,28 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
                     noteRef.current.style.zIndex = '3';
                 }}></p>
 
-                <button onClick={() => setIsDeleteWarning(true)} className={styles.btn_icon}>
-                    <img className={styles.trash_icon} src={trash} alt="delete" />
-                </button>
-
                 <div ref={tagListRef} className={styles.tag_list}>
                     {noteTags.map((tag) => 
                         <p className={styles.tag} key={Math.random()}>{tag.title}</p>
                     )}
                 </div>
-
-                <p className={styles.date}>{new Date(note.updated).toLocaleString({
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: true
-                })}</p>
-                {isEditNote?
-            <button onClick={handleUpdateNote} className={styles.close_btn}>Close</button>
-            : ''}
+                
+                <div className={styles.date_container}>
+                    <p className={styles.date}>{new Date(note.updated).toLocaleString({
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        hour12: true
+                    })}</p>
+                    <div style={{display: 'flex', gap: '1rem'}}>
+                        <button onClick={() => setIsDeleteWarning(true)} className={styles.btn_icon}>
+                            <img className={styles.trash_icon} src={trash} alt="delete" />
+                        </button>
+                        {isEditNote?
+                        <button onClick={handleUpdateNote} className={styles.close_btn}>Close</button>
+                        : ''}
+                    </div>
+                </div>
+                
             </section>
         </div>
     );
