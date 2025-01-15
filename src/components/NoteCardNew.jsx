@@ -91,7 +91,7 @@ const NoteCardNew = ({ toggleIsNewNote, refreshNotesAndTags, activeTag, tags }) 
             // close new note
             toggleIsNewNote();
             // refresh notes
-            refreshNotesAndTags();
+            refreshNotesAndTags(activeTag);
         }
     }
 

@@ -33,9 +33,9 @@ const Dashboard = () => {
     const [isMenu, setIsMenu] = useState();
 
     // return: [] of filtered notes
-    const filterNotes = (tagId) => {
+    const filterNotes = (tagId, notes) => {
         setActiveTag(tagId);
-        return allNotes.filter((note) => note.tags.includes(tagId));
+        return notes.filter((note) => note.tags.includes(tagId));
     }
 
     // return: null
@@ -214,13 +214,14 @@ const Dashboard = () => {
         setAllNotes(notes);
         setAllTags(tags);
 
+
         if (tagId) {
             // filter display notes
-            setDisplayedNotes(filterNotes(tagId));
+            setDisplayedNotes(filterNotes(tagId, notes));
         }
         else {
             setDisplayedNotes([...notes]);
-            //setActiveTag(null);
+            setActiveTag(null);
         }
     };
 
