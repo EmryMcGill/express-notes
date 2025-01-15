@@ -13,7 +13,7 @@
 
 body {
     background-color: var(--background-primary);
-    overscroll-behavior: none;
+    overscroll-behavior-y: contain;
 }
 
 button {
