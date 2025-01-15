@@ -195,7 +195,6 @@ const Dashboard = () => {
         let tags = [];
         if (await getNotes() !== null) {
             console.log('online')
-            alert('online')
 
             await syncOnline();
 
@@ -205,7 +204,6 @@ const Dashboard = () => {
         }
         else {
             console.log('offline')
-            alert('offline')
             // get notes and tags from offline db
             notes = await getAllNotesOffline();
             notes = notes.filter(note => note.toDelete === false);
@@ -215,6 +213,8 @@ const Dashboard = () => {
 
         setAllNotes(notes);
         setAllTags(tags);
+
+        alert(notes);
 
         if (tagId) {
             // filter display notes
