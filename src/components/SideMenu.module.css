@@ -80,6 +80,7 @@
 
 .logout_btn {
     margin-top: auto;
+    margin-bottom: calc(0.5rem + env(safe-area-inset-bottom));
     background-color: var(--background-primary);
     color: black;
 }
