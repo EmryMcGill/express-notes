@@ -11,11 +11,6 @@
     --text-primary: black;
 }
 
-html, body {
-    overscroll-behavior: none;
-    -webkit-overflow-scrolling: touch;
-}
-
 body {
     background-color: var(--background-primary);
 }
