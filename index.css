@@ -11,9 +11,17 @@
     --text-primary: black;
 }
 
+html {
+    height  : 100%;
+    overflow: hidden;
+    position: relative;
+}
+
 body {
     background-color: var(--background-primary);
-    overscroll-behavior-y: contain;
+    height  : 100%;
+    overflow: auto;
+    position: relative;
 }
 
 button {
