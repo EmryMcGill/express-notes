@@ -220,7 +220,7 @@ const Dashboard = () => {
         }
         else {
             setDisplayedNotes([...notes]);
-            setActiveTag(null);
+            //setActiveTag(null);
         }
     };
 
