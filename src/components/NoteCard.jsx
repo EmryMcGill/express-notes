@@ -21,6 +21,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
     const warningRef = useRef();
 
     const handleLongPress = (e) => {
+        e.preventDefault();
         const pressTimer = setTimeout(() => {
             setIsDeleteWarning(true);
           }, 500);
