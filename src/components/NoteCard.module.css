@@ -21,11 +21,13 @@
     }
 }
 
-.note_card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: scale(1.03);
-    transition: all 0.1s ease;
-}
+@media (hover: hover) {
+    .note_card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: scale(1.03);
+        transition: all 0.1s ease;
+    }
+  }
 
 .note_card:active {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);

@@ -1,6 +1,7 @@
 todo:
 
-- figure out why notes are not loading at first when offline
+- make mobile view better (the top especially)
+
 - add prompt for ios
 - create better readme
 - add: change background color btn
