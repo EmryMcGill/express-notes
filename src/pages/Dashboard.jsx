@@ -214,8 +214,6 @@ const Dashboard = () => {
         setAllNotes(notes);
         setAllTags(tags);
 
-        alert(notes);
-
         if (tagId) {
             // filter display notes
             setDisplayedNotes(filterNotes(tagId));
