@@ -2,6 +2,10 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import styles from "./Landing.module.css";
 import { usePocket } from "../PbContext";
+import github from '../../public/icons/github.svg';
+import email from '../../public/icons/email.svg';
+import portfolio from '../../public/icons/portfolio.svg';
+
 
 const Landing = () => {
 
@@ -85,6 +89,17 @@ const Landing = () => {
 
         <div className={styles.footer}>
             <p>Made by Emry Mcgill</p>
+            <div className={styles.footer_icon_container}>
+                <a rel="noopener noreferrer" target="_blank" href="https://github.com/EmryMcGill">
+                    <img className={styles.menu_icon} src={github} alt="github" />
+                </a>
+                <a rel="noopener noreferrer" target="_blank" href="mailto:emrymcgill@gmail.com">
+                    <img className={styles.menu_icon} src={email} alt="email" />
+                </a>
+                <a rel="noopener noreferrer" target="_blank" href="https://emrymcgill.com">
+                    <img className={styles.menu_icon} src={portfolio} alt="portfolio" />
+                </a>
+            </div>
         </div>
     </section>
     );

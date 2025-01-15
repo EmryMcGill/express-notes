@@ -30,16 +30,7 @@ const Dashboard = () => {
     const [displayedNotes, setDisplayedNotes] = useState();
     const [isNewNote, setIsNewNote] = useState(false);
     const [activeTag, setActiveTag] = useState(null);
-    
-    // return: null
-    const changePageMargin = (isMenu) => {
-        if (isMenu) {
-            mainRef.current.style.marginLeft = "0px";
-        }
-        else {
-            mainRef.current.style.marginLeft = "250px";
-        }
-    }
+    const [isMenu, setIsMenu] = useState();
 
     // return: [] of filtered notes
     const filterNotes = (tagId) => {
@@ -243,10 +234,10 @@ const Dashboard = () => {
         tags={allTags} 
         toggleIsNewNote={(toggleIsNewNote)} 
         refreshNotesAndTags={refreshNotesAndTags} 
-        changePageMargin={changePageMargin}
+        changeIsMenu={(val) => setIsMenu(val)}
         activeTag={activeTag} />
 
-        <div ref={mainRef} className={styles.main_container}>
+        <div ref={mainRef} className={`${styles.main_container} ${isMenu ? styles.open : ''}`}>
             <div className={styles.input_container}>
                 <input onChange={search} ref={searchRef} placeholder="Search notes" className={styles.input} type="text" />
             </div>

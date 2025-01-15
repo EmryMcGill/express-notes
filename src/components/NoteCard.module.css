@@ -7,12 +7,18 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 350px;
     max-width: 350px;
     height: fit-content;
     border-radius: 10px;
     background-color: var(--background-secondary);
     padding: 1rem;
+}
+
+@media (max-width: calc(350px + 2rem)) {
+    .note_card {
+        width: 100%;
+    }
 }
 
 .note_card:hover {
@@ -143,6 +149,7 @@ cursor: default;
     border-radius: 10px;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
     background-color: var(--background-secondary);
     z-index: 3;
 }

@@ -13,7 +13,10 @@
     padding: 1rem;
     transition: all 0.3s;
     container-type: inline-size;
-    margin-left: 250px;
+}
+
+.open {
+  margin-left: 250px;
 }
 
 .input_container {
@@ -35,9 +38,10 @@
 
 .new_note_btn_mobile {
   display: none;
-  width: 100%;
+  width: 350px;
   max-width: 350px;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   padding: 1rem;
 }
 
@@ -57,6 +61,16 @@
   @container (min-width: 1400px) {
     /* Wide layout stuff here */
     column-count: 4;
+  }
+}
+
+@media (max-width: calc(350px + 2rem)) {
+  .notes_list {
+    width: 100%;
+  }
+
+  .new_note_btn_mobile {
+    width: 100%;
   }
 }
 

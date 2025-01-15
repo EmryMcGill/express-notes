@@ -113,6 +113,11 @@
     padding: 1.5rem;
 }
 
+.footer_icon_container {
+    display: flex;
+    gap: 1rem;
+}
+
 @media (max-width: 1050px) {
     .hero_container {
         flex-direction: column;

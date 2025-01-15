@@ -80,9 +80,5 @@
     background-color: var(--background-primary-tint);
 }
 
-@media (max-width: 400px) {
-    .side_menu_outer {
-        position: fixed;
-    }    
-}
+
 

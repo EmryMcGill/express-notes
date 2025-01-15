@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePocket } from "../PbContext"; 
 
 const SideMenu = ({ 
-    changePageMargin, 
+    changeIsMenu, 
     refreshNotesAndTags, 
     toggleIsNewNote, 
     tags,
@@ -21,15 +21,11 @@ const SideMenu = ({
 
     const toggleMenu = () => {
         if (isMenu) {
-            //menuRef.current.style.transform = "translateX(-250px)";
-            //menuRef.current.classList.add('open');
-            changePageMargin(isMenu);
+            changeIsMenu(false);
             setIsMenu(false);
         }
         else {
-            //menuRef.current.style.transform = "translateX(0)";
-            //menuRef.current.classList.remove('open');
-            changePageMargin(isMenu)
+            changeIsMenu(true);
             setIsMenu(true);
         }
     }
@@ -49,22 +45,28 @@ const SideMenu = ({
         }
     }
 
+    // toggle menu on window resize
+    const handleResize = () => {
+        if (window.innerWidth < 650) {
+            // screen is small
+            // close menu
+            setIsMenu(false);
+            changeIsMenu(false);
+        }
+        else {
+            setIsMenu(true);
+            changeIsMenu(true);
+        }
+    }
+
     useEffect(() => {
         if (activeTag === null) {
             tagListRef.current.childNodes[0].style.backgroundColor = '#e6ebf0';
         }
 
-        const mediaQuery = window.matchMedia("(max-width: 650px)");
+        // listen for window resizing
+        window.addEventListener('resize', handleResize);
 
-        const handleMediaChange = (e) => {
-            if (e.matches) {
-                setIsMenu(false);
-            }
-        };
-        if (mediaQuery.matches) {
-            setIsOpen(false);
-        }
-        mediaQuery.addEventListener("change", handleMediaChange);
     }, []);
 
     return (
