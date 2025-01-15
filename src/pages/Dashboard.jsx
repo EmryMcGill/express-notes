@@ -193,7 +193,7 @@ const Dashboard = () => {
     const refreshNotesAndTags = async (tagId) => {
         let notes;
         let tags = [];
-        if (navigator.onLine) {
+        if (await getNotes() !== null) {
             console.log('online')
             alert('online')
 
@@ -228,6 +228,9 @@ const Dashboard = () => {
 
     useEffect(() => {
         refreshNotesAndTags();
+
+        // listen for network changes
+        window.addEventListener("online", refreshNotesAndTags);
     }, []);
     
     return (
