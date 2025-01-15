@@ -20,7 +20,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
     const bodyRef = useRef();
     const warningRef = useRef();
 
-    const handleLongPress = (e) => {
+    /*const handleLongPress = (e) => {
         e.preventDefault();
         const pressTimer = setTimeout(() => {
             setIsDeleteWarning(true);
@@ -29,7 +29,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
         e.target.addEventListener('touchend', () => {
         clearTimeout(pressTimer);
         });
-    }
+    }*/
 
     const handleUpdateNote = async () => {
         if (bodyRef.current.textContent === "") {
@@ -171,7 +171,7 @@ const NoteCard = ({ note, tags, refreshNotesAndTags }) => {
             <section 
             ref={noteRef} 
             className={styles.note_card}
-            onTouchStart={handleLongPress}
+            //onTouchStart={handleLongPress}
              >
                 <p 
                 ref={bodyRef}
