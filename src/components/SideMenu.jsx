@@ -17,7 +17,7 @@ const SideMenu = ({
     // variables
     const menuRef = useRef();
     const tagListRef = useRef();
-    const [isMenu, setIsMenu] = useState(true);
+    const [isMenu, setIsMenu] = useState();
 
     const toggleMenu = () => {
         if (isMenu) {
@@ -63,6 +63,9 @@ const SideMenu = ({
         if (activeTag === null) {
             tagListRef.current.childNodes[0].style.backgroundColor = '#e6ebf0';
         }
+
+        // handle toggle on load
+        handleResize();
 
         // listen for window resizing
         window.addEventListener('resize', handleResize);
