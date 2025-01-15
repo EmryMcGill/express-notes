@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import SideMenu from "../components/SideMenu";
-import NoteCard from "../components/noteCard";
+import NoteCard from "../components/NoteCard";
 import NoteCardNew from "../components/NoteCardNew";
 import styles from './Dashboard.module.css';
 import { usePocket } from "../PbContext";
